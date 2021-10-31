@@ -1,0 +1,28 @@
+{
+  "ResourceScopes": [
+    {
+      "Label": "",
+      "ResourceOrScope": "<RESOURCE_OR_SCOPE_GOES_HERE>"
+    }
+  ],
+  "ClientIds": [
+    {
+      "Label": "",
+      "ClientId": "<CLIENT_ID_GOES_HERE>"
+    }
+  ],
+  "AuthenticationCertificates": [
+    {
+      "Label": "",
+      "SubjectName": "<SUBJECTNAME_GOES_HERE>",
+      "Thumbprint": "<THUMBPRINT_GOES_HERE>"
+    }
+  ],
+  "EncryptionCertificates": [
+    {
+      "Label": "",
+      "SubjectName": "<SUBJECTNAME_GOES_HERE>",
+      "Thumbprint": "<THUMBPRINT_GOES_HERE>"
+    }
+  ]
+}
