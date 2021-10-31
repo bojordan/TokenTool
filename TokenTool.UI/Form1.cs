@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Windows.Forms;
@@ -11,19 +12,32 @@ namespace TokenTool.UI
     {
         public Form1()
         {
-            var configFile = System.IO.File.ReadAllText("config.json");
-            var config = JsonSerializer.Deserialize<TokenToolConfig>(configFile);
-
             InitializeComponent();
+        }
 
-            this.cbResourceScope.Items.AddRange(config.ResourceScopes.Select(x => x.ResourceOrScope).ToArray());
-            this.cbClientId.Items.AddRange(config.ClientIds.Select(x => x.ClientId).ToArray());
-            this.cbAuthCert.Items.AddRange(config.AuthenticationCertificates.Select(x => x.Thumbprint).ToArray());
-            this.cbEncryptionCert.Items.AddRange(config.EncryptionCertificates.Select(x => x.SubjectName).ToArray());
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            try
+            {
+                var configFile = File.ReadAllText("config.json");
+                var config = JsonSerializer.Deserialize<TokenToolConfig>(configFile);
+
+                this.cbResourceScope.Items.AddRange(config.ResourceScopes.Select(x => AddLabel(x.Label, x.ResourceOrScope)).ToArray());
+                this.cbClientId.Items.AddRange(config.ClientIds.Select(x => AddLabel(x.Label, x.ClientId)).ToArray());
+                this.cbAuthCert.Items.AddRange(config.AuthenticationCertificates.Select(x => AddLabel(x.Label, x.Thumbprint)).ToArray());
+                this.cbEncryptionCert.Items.AddRange(config.EncryptionCertificates.Select(x => AddLabel(x.Label, x.SubjectName)).ToArray());
+            }
+            catch (Exception ex)
+            {
+                this.tbGetTokenOutput.AppendText(ex.ToString());
+            }
 
             if (this.cbResourceScope.Items.Count > 0)
             {
                 this.cbResourceScope.SelectedIndex = 0;
+                AppendDefaultScopeToActive();
             }
 
             if (cbClientId.Items.Count > 0)
@@ -42,13 +56,28 @@ namespace TokenTool.UI
             }
         }
 
+        private static string AddLabel(string label, string payload)
+        {
+            return $"{label} | {payload}";
+        }
+
+        private static string RemoveLabel(string withLabel)
+        {
+            if (withLabel.Contains("|"))
+            {
+                var entries = withLabel.Split("|", StringSplitOptions.TrimEntries);
+                return entries.Last();
+            }
+            return withLabel;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                var resource = this.cbResourceScope.Text;
-                var clientId = this.cbClientId.Text;
-                var thumbprint = this.cbAuthCert.Text;
+                var resource = RemoveLabel(this.cbResourceScope.Text);
+                var clientId = RemoveLabel(this.cbClientId.Text);
+                var thumbprint = RemoveLabel(this.cbAuthCert.Text);
                 if (rbAdalS2s.Checked)
                 {
                     var token = TokenRetrieverAdalS2s.GetAccessTokenAsync(resource, clientId, thumbprint).GetAwaiter().GetResult();
@@ -65,7 +94,7 @@ namespace TokenTool.UI
                     string encryptionCertName = null;
                     if (cbEncrypted.Checked)
                     {
-                        encryptionCertName = cbEncryptionCert.Text;
+                        encryptionCertName = RemoveLabel(cbEncryptionCert.Text);
                     }
                     var token = TokenRetrieverMsalObo.GetToken(new[] { resource }, clientId, thumbprint, jwtToken, encryptionCertName);
                     this.tbGetTokenOutput.Text = token;
@@ -84,7 +113,7 @@ namespace TokenTool.UI
             {
                 if (this.tbGetTokenOutput.Text != null)
                 {
-                    var encryptionCertSubjectName = this.cbEncryptionCert.Text?.Trim();
+                    var encryptionCertSubjectName = RemoveLabel(this.cbEncryptionCert.Text?.Trim());
                     var output = TokenValidator.ValidateReadable(this.tbGetTokenOutput.Text?.Trim(), encryptionCertSubjectName);
                     this.tbDecryptTokenOutput.Text = output;
                 }
@@ -97,9 +126,14 @@ namespace TokenTool.UI
 
         private void rbMsalS2s_CheckedChanged(object sender, EventArgs e)
         {
+            AppendDefaultScopeToActive();
+        }
+
+        private void AppendDefaultScopeToActive()
+        {
             if (rbMsalS2s.Checked || rbMsalObo.Checked)
             {
-                if (this.cbResourceScope.Text.IndexOf("/", 8) <= 0)
+                if (RemoveLabel(this.cbResourceScope.Text).IndexOf("/", 8) <= 0)
                 {
                     this.cbResourceScope.Text += "/.default";
                 }
