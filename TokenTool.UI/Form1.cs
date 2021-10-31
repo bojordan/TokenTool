@@ -75,6 +75,8 @@ namespace TokenTool.UI
         {
             try
             {
+                AppendDefaultScopeToActive();
+
                 var resource = RemoveLabel(this.cbResourceScope.Text);
                 var clientId = RemoveLabel(this.cbClientId.Text);
                 var thumbprint = RemoveLabel(this.cbAuthCert.Text);

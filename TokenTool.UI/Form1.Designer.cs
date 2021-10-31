@@ -113,15 +113,16 @@ namespace TokenTool.UI
             this.tbDecryptTokenOutput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.tbDecryptTokenOutput.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbDecryptTokenOutput.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(195)))), ((int)(((byte)(121)))));
-            this.tbDecryptTokenOutput.Location = new System.Drawing.Point(0, 70);
+            this.tbDecryptTokenOutput.Location = new System.Drawing.Point(0, 57);
             this.tbDecryptTokenOutput.Multiline = true;
             this.tbDecryptTokenOutput.Name = "tbDecryptTokenOutput";
             this.tbDecryptTokenOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbDecryptTokenOutput.Size = new System.Drawing.Size(1399, 586);
+            this.tbDecryptTokenOutput.Size = new System.Drawing.Size(1399, 605);
             this.tbDecryptTokenOutput.TabIndex = 8;
             // 
             // btnDecrypt
             // 
+            this.btnDecrypt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDecrypt.Location = new System.Drawing.Point(1266, 17);
             this.btnDecrypt.Name = "btnDecrypt";
             this.btnDecrypt.Size = new System.Drawing.Size(112, 34);
@@ -135,7 +136,7 @@ namespace TokenTool.UI
             this.cbEncryptionCert.FormattingEnabled = true;
             this.cbEncryptionCert.Location = new System.Drawing.Point(140, 17);
             this.cbEncryptionCert.Name = "cbEncryptionCert";
-            this.cbEncryptionCert.Size = new System.Drawing.Size(557, 33);
+            this.cbEncryptionCert.Size = new System.Drawing.Size(568, 33);
             this.cbEncryptionCert.TabIndex = 10;
             // 
             // lblResourceScopes
@@ -244,7 +245,7 @@ namespace TokenTool.UI
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.splitContainer1.Cursor = System.Windows.Forms.Cursors.HSplit;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
@@ -286,6 +287,7 @@ namespace TokenTool.UI
             this.Controls.Add(this.splitContainer1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(1280, 600);
             this.Name = "Form1";
             this.Text = "TokenTool";
             this.splitContainer1.Panel1.ResumeLayout(false);
