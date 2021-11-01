@@ -140,11 +140,20 @@ namespace TokenTool.UI
 
         private void AppendDefaultScopeToActive()
         {
+            const string defaultScope = "/.default";
             if (rbMsalS2s.Checked || rbMsalObo.Checked)
             {
                 if (RemoveLabel(this.cbResourceScope.Text).IndexOf("/", 8) <= 0)
                 {
-                    this.cbResourceScope.Text += "/.default";
+                    this.cbResourceScope.Text += defaultScope;
+                }
+            }
+            else
+            {
+                var previousValue = this.cbResourceScope.Text;
+                if (RemoveLabel(previousValue).EndsWith(defaultScope))
+                {
+                    this.cbResourceScope.Text = previousValue.Replace(defaultScope, string.Empty);
                 }
             }
         }
