@@ -5,11 +5,10 @@ namespace TokenTool.Core
 {
     public static class TokenRetrieverAdalS2s
     {
-        public static async Task<string> GetAccessTokenAsync(string resource, string clientId, string thumbprint)
+        public static async Task<string> GetAccessTokenAsync(string resource, string clientId, string thumbprint, string authority)
         {
             var certificate = CertUtils.GetCertificateFromStore(thumbprint);
             var clientAssertionCertificate = new ClientAssertionCertificate(clientId, certificate);
-            var authority = "https://login.microsoftonline.com/common";
             var authContext = new AuthenticationContext(authority: authority, validateAuthority: true);
 
             // Acquire the token via the client credential grant flow

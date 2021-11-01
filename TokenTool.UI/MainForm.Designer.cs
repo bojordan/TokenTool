@@ -1,7 +1,7 @@
 ﻿
 namespace TokenTool.UI
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@ namespace TokenTool.UI
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.cbResourceScope = new System.Windows.Forms.ComboBox();
             this.btnGetToken = new System.Windows.Forms.Button();
             this.cbClientId = new System.Windows.Forms.ComboBox();
@@ -49,6 +49,8 @@ namespace TokenTool.UI
             this.cbEncrypted = new System.Windows.Forms.CheckBox();
             this.lblUserAssertionJwt = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lblAuthority = new System.Windows.Forms.Label();
+            this.cbAuthority = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -98,11 +100,11 @@ namespace TokenTool.UI
             this.tbGetTokenOutput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.tbGetTokenOutput.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbGetTokenOutput.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(192)))), ((int)(((byte)(123)))));
-            this.tbGetTokenOutput.Location = new System.Drawing.Point(0, 132);
+            this.tbGetTokenOutput.Location = new System.Drawing.Point(0, 167);
             this.tbGetTokenOutput.Multiline = true;
             this.tbGetTokenOutput.Name = "tbGetTokenOutput";
             this.tbGetTokenOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbGetTokenOutput.Size = new System.Drawing.Size(1399, 616);
+            this.tbGetTokenOutput.Size = new System.Drawing.Size(1399, 581);
             this.tbGetTokenOutput.TabIndex = 7;
             // 
             // tbDecryptTokenOutput
@@ -117,7 +119,7 @@ namespace TokenTool.UI
             this.tbDecryptTokenOutput.Multiline = true;
             this.tbDecryptTokenOutput.Name = "tbDecryptTokenOutput";
             this.tbDecryptTokenOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbDecryptTokenOutput.Size = new System.Drawing.Size(1399, 605);
+            this.tbDecryptTokenOutput.Size = new System.Drawing.Size(1399, 638);
             this.tbDecryptTokenOutput.TabIndex = 8;
             // 
             // btnDecrypt
@@ -253,6 +255,8 @@ namespace TokenTool.UI
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.lblAuthority);
+            this.splitContainer1.Panel1.Controls.Add(this.cbAuthority);
             this.splitContainer1.Panel1.Controls.Add(this.cbAuthCert);
             this.splitContainer1.Panel1.Controls.Add(this.lblUserAssertionJwt);
             this.splitContainer1.Panel1.Controls.Add(this.cbResourceScope);
@@ -267,6 +271,7 @@ namespace TokenTool.UI
             this.splitContainer1.Panel1.Controls.Add(this.lblClientId);
             this.splitContainer1.Panel1.Controls.Add(this.rbAdalS2s);
             this.splitContainer1.Panel1.Controls.Add(this.lblAuthCert);
+            this.splitContainer1.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
             // 
             // splitContainer1.Panel2
             // 
@@ -274,10 +279,28 @@ namespace TokenTool.UI
             this.splitContainer1.Panel2.Controls.Add(this.lblEncryptionCert);
             this.splitContainer1.Panel2.Controls.Add(this.btnDecrypt);
             this.splitContainer1.Panel2.Controls.Add(this.cbEncryptionCert);
+            this.splitContainer1.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.splitContainer1.Size = new System.Drawing.Size(1399, 1456);
             this.splitContainer1.SplitterDistance = 748;
             this.splitContainer1.SplitterWidth = 10;
             this.splitContainer1.TabIndex = 23;
+            // 
+            // lblAuthority
+            // 
+            this.lblAuthority.AutoSize = true;
+            this.lblAuthority.Location = new System.Drawing.Point(15, 131);
+            this.lblAuthority.Name = "lblAuthority";
+            this.lblAuthority.Size = new System.Drawing.Size(86, 25);
+            this.lblAuthority.TabIndex = 24;
+            this.lblAuthority.Text = "Authority";
+            // 
+            // cbAuthority
+            // 
+            this.cbAuthority.FormattingEnabled = true;
+            this.cbAuthority.Location = new System.Drawing.Point(160, 128);
+            this.cbAuthority.Name = "cbAuthority";
+            this.cbAuthority.Size = new System.Drawing.Size(548, 33);
+            this.cbAuthority.TabIndex = 23;
             // 
             // Form1
             // 
@@ -321,6 +344,8 @@ namespace TokenTool.UI
         private System.Windows.Forms.CheckBox cbEncrypted;
         private System.Windows.Forms.Label lblUserAssertionJwt;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label lblAuthority;
+        private System.Windows.Forms.ComboBox cbAuthority;
     }
 }
 

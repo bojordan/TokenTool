@@ -4,10 +4,10 @@ namespace TokenTool.Core
 {
     public static class TokenRetrieverMsalS2s
     {
-        public static string GetToken(string[] scopes, string clientId, string thumbprint)
+        public static string GetToken(string[] scopes, string clientId, string thumbprint, string authority)
         {
             var clientApp = ConfidentialClientApplicationBuilder.Create(clientId)
-                .WithAuthority("https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47")
+                .WithAuthority(authority)
                 .WithCertificate(CertUtils.GetCertificateFromStore(thumbprint))
                 .Build();
 

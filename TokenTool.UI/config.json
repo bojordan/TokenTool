@@ -1,28 +1,38 @@
 {
   "ResourceScopes": [
     {
-      "Label": "",
+      "Label": "<LABEL>",
       "ResourceOrScope": "<RESOURCE_OR_SCOPE_GOES_HERE>"
     }
   ],
   "ClientIds": [
     {
-      "Label": "",
+      "Label": "<LABEL>",
       "ClientId": "<CLIENT_ID_GOES_HERE>"
     }
   ],
   "AuthenticationCertificates": [
     {
-      "Label": "",
+      "Label": "<LABEL>",
       "SubjectName": "<SUBJECTNAME_GOES_HERE>",
       "Thumbprint": "<THUMBPRINT_GOES_HERE>"
     }
   ],
   "EncryptionCertificates": [
     {
-      "Label": "",
+      "Label": "<LABEL>",
       "SubjectName": "<SUBJECTNAME_GOES_HERE>",
       "Thumbprint": "<THUMBPRINT_GOES_HERE>"
+    }
+  ],
+  "Authorities": [
+    {
+      "Label": "Common authority",
+      "Authority": "https://login.microsoftonline.com/common"
+    },
+    {
+      "Label": "Microsoft tenant",
+      "Authority": "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47"
     }
   ]
 }

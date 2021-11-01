@@ -10,6 +10,8 @@
 
         public CertificateWrapper[] EncryptionCertificates { get; set; }
 
+        public AuthorityWrapper[] Authorities { get; set; }
+
         public class ResourceOrScopeWrapper
         {
             public string Label { get; set; }
@@ -27,6 +29,12 @@
             public string Label { get; set; }
             public string SubjectName { get; set; }
             public string Thumbprint { get; set; }
+        }
+
+        public class AuthorityWrapper
+        {
+            public string Label { get; set; }
+            public string Authority { get; set; }
         }
     }
 }

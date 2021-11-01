@@ -4,11 +4,16 @@ namespace TokenTool.Core
 {
     public static class TokenRetrieverMsalObo
     {
-        public static string GetToken(string[] scopes, string clientId, string thumbprint, string jwtToken, string encryptionCertName = null)
+        public static string GetToken(
+            string[] scopes,
+            string clientId,
+            string thumbprint,
+            string jwtToken,
+            string authority,
+            string encryptionCertName = null)
         {
             var clientApp = ConfidentialClientApplicationBuilder.Create(clientId)
-                //.WithAuthority("https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47")
-                .WithAuthority("https://login.microsoftonline.com/common")
+                .WithAuthority(authority)
                 .WithCertificate(CertUtils.GetCertificateFromStore(thumbprint))
                 .Build();
 

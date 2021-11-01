@@ -8,9 +8,9 @@ using TokenTool.Core;
 
 namespace TokenTool.UI
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -28,6 +28,7 @@ namespace TokenTool.UI
                 this.cbClientId.Items.AddRange(config.ClientIds.Select(x => AddLabel(x.Label, x.ClientId)).ToArray());
                 this.cbAuthCert.Items.AddRange(config.AuthenticationCertificates.Select(x => AddLabel(x.Label, x.Thumbprint)).ToArray());
                 this.cbEncryptionCert.Items.AddRange(config.EncryptionCertificates.Select(x => AddLabel(x.Label, x.SubjectName)).ToArray());
+                this.cbAuthority.Items.AddRange(config.Authorities.Select(x => AddLabel(x.Label, x.Authority)).ToArray());
             }
             catch (Exception ex)
             {
@@ -53,6 +54,11 @@ namespace TokenTool.UI
             if (cbEncryptionCert.Items.Count > 0)
             {
                 this.cbEncryptionCert.SelectedIndex = 0;
+            }
+
+            if (cbAuthority.Items.Count > 0)
+            {
+                this.cbAuthority.SelectedIndex = 0;
             }
         }
 
@@ -80,14 +86,15 @@ namespace TokenTool.UI
                 var resource = RemoveLabel(this.cbResourceScope.Text);
                 var clientId = RemoveLabel(this.cbClientId.Text);
                 var thumbprint = RemoveLabel(this.cbAuthCert.Text);
+                var authority = RemoveLabel(this.cbAuthority.Text);
                 if (rbAdalS2s.Checked)
                 {
-                    var token = TokenRetrieverAdalS2s.GetAccessTokenAsync(resource, clientId, thumbprint).GetAwaiter().GetResult();
+                    var token = TokenRetrieverAdalS2s.GetAccessTokenAsync(resource, clientId, thumbprint, authority).GetAwaiter().GetResult();
                     this.tbGetTokenOutput.Text = token;
                 }
                 if (rbMsalS2s.Checked)
                 {
-                    var token = TokenRetrieverMsalS2s.GetToken(new[] { resource }, clientId, thumbprint);
+                    var token = TokenRetrieverMsalS2s.GetToken(new[] { resource }, clientId, thumbprint,authority);
                     this.tbGetTokenOutput.Text = token;
                 }
                 if (rbMsalObo.Checked)
@@ -98,7 +105,7 @@ namespace TokenTool.UI
                     {
                         encryptionCertName = RemoveLabel(cbEncryptionCert.Text);
                     }
-                    var token = TokenRetrieverMsalObo.GetToken(new[] { resource }, clientId, thumbprint, jwtToken, encryptionCertName);
+                    var token = TokenRetrieverMsalObo.GetToken(new[] { resource }, clientId, thumbprint, jwtToken, authority, encryptionCertName);
                     this.tbGetTokenOutput.Text = token;
                 }
 
