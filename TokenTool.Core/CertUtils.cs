@@ -4,23 +4,31 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace TokenTool.Core
 {
+    public enum CertStoreLocation
+    {
+        CurrentUser,
+        LocalMachine
+    }
+
     public class CertUtils
     {
-        public static X509Certificate2 GetCertificateFromStore(string subjectNameOrThumbprint)
+        public static X509Certificate2 GetCertificateFromStore(CertStoreLocation certStore, string subjectNameOrThumbprint)
         {
+            StoreLocation storeLocation = (certStore == CertStoreLocation.CurrentUser) ? StoreLocation.CurrentUser : StoreLocation.LocalMachine;
+
             if (subjectNameOrThumbprint.Contains("."))
             {
-                return GetCertificateFromStore(subjectNameOrThumbprint, X509FindType.FindBySubjectName);
+                return GetCertificateFromStore(subjectNameOrThumbprint, X509FindType.FindBySubjectName, storeLocation);
             }
             else
             {
-                return GetCertificateFromStore(subjectNameOrThumbprint, X509FindType.FindByThumbprint);
+                return GetCertificateFromStore(subjectNameOrThumbprint, X509FindType.FindByThumbprint, storeLocation);
             }
         }
 
-        protected static X509Certificate2 GetCertificateFromStore(string subjectNameOrThumbprint, X509FindType findType)
+        protected static X509Certificate2 GetCertificateFromStore(string subjectNameOrThumbprint, X509FindType findType, StoreLocation storeLocation)
         {
-            using var store = new X509Store(StoreLocation.LocalMachine);
+            using var store = new X509Store(storeLocation);
 
             store.Open(OpenFlags.ReadOnly);
 
@@ -35,9 +43,9 @@ namespace TokenTool.Core
             return encryptionCert[0];
         }
 
-        public static SecurityKey GetSecurityKeyFromCertificateInCertStore(string subjectNameOrThumbprint)
+        public static SecurityKey GetSecurityKeyFromCertificateInCertStore(CertStoreLocation storeLocation, string subjectNameOrThumbprint)
         {
-            var cert = GetCertificateFromStore(subjectNameOrThumbprint);
+            var cert = GetCertificateFromStore(storeLocation, subjectNameOrThumbprint);
             if (cert != null)
             {
                 return new X509SecurityKey(cert);

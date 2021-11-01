@@ -7,6 +7,7 @@ namespace TokenTool.Core
         public static string GetToken(
             string[] scopes,
             string clientId,
+            CertStoreLocation storeLocation,
             string thumbprint,
             string jwtToken,
             string authority,
@@ -14,12 +15,12 @@ namespace TokenTool.Core
         {
             var clientApp = ConfidentialClientApplicationBuilder.Create(clientId)
                 .WithAuthority(authority)
-                .WithCertificate(CertUtils.GetCertificateFromStore(thumbprint))
+                .WithCertificate(CertUtils.GetCertificateFromStore(storeLocation, thumbprint))
                 .Build();
 
             if (encryptionCertName != null)
             {
-                jwtToken = TokenValidator.ValidateRaw(jwtToken, encryptionCertName);
+                jwtToken = TokenValidator.ValidateRaw(jwtToken, storeLocation, encryptionCertName);
             }
 
             var userAssertion = new UserAssertion(jwtToken);

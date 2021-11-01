@@ -9,7 +9,7 @@ namespace TokenTool.Core
 {
     public class TokenValidator
     {
-        public static JwtSecurityToken Validate(string token, string certSubjectNameOrThumbprint)
+        public static JwtSecurityToken Validate(string token, CertStoreLocation storeLocation, string certSubjectNameOrThumbprint)
         {
             var metadataAddress = $"https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration";
 
@@ -23,7 +23,7 @@ namespace TokenTool.Core
 
             var config = configManager.GetConfigurationAsync().GetAwaiter().GetResult();
 
-            var securityKey = CertUtils.GetSecurityKeyFromCertificateInCertStore(certSubjectNameOrThumbprint);
+            var securityKey = CertUtils.GetSecurityKeyFromCertificateInCertStore(storeLocation, certSubjectNameOrThumbprint);
 
             var tokenValidationParameters = new TokenValidationParameters
             {
@@ -43,9 +43,9 @@ namespace TokenTool.Core
             return (JwtSecurityToken)validatedToken;
         }
 
-        public static string ValidateReadable(string token, string certSubjectName)
+        public static string ValidateReadable(string token, CertStoreLocation storeLocation, string certSubjectName)
         {
-            var validatedToken = Validate(token, certSubjectName);
+            var validatedToken = Validate(token, storeLocation, certSubjectName);
 
             var tokenHeaderJson = IndentJson(validatedToken.InnerToken.Header.SerializeToJson());
             var tokenPayloadJson = IndentJson(validatedToken.InnerToken.Payload.SerializeToJson());
@@ -55,9 +55,9 @@ namespace TokenTool.Core
             return $"HEADER\r\n{tokenHeaderJson}\r\nPAYLOAD\r\n{tokenPayloadJson}\r\nRAW\r\n{rawData}";
         }
 
-        public static string ValidateRaw(string token, string certSubjectName)
+        public static string ValidateRaw(string token, CertStoreLocation storeLocation, string certSubjectName)
         {
-            var validatedToken = Validate(token, certSubjectName);
+            var validatedToken = Validate(token, storeLocation, certSubjectName);
 
             return validatedToken.InnerToken.RawData;
         }

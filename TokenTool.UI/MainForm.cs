@@ -87,14 +87,21 @@ namespace TokenTool.UI
                 var clientId = RemoveLabel(this.cbClientId.Text);
                 var thumbprint = RemoveLabel(this.cbAuthCert.Text);
                 var authority = RemoveLabel(this.cbAuthority.Text);
+
+                var storeLocation = CertStoreLocation.CurrentUser;
+                if (rbAuthCertLocalMachine.Checked)
+                {
+                    storeLocation = CertStoreLocation.LocalMachine;
+                }
+
                 if (rbAdalS2s.Checked)
                 {
-                    var token = TokenRetrieverAdalS2s.GetAccessTokenAsync(resource, clientId, thumbprint, authority).GetAwaiter().GetResult();
+                    var token = TokenRetrieverAdalS2s.GetAccessTokenAsync(resource, clientId, storeLocation, thumbprint, authority).GetAwaiter().GetResult();
                     this.tbGetTokenOutput.Text = token;
                 }
                 if (rbMsalS2s.Checked)
                 {
-                    var token = TokenRetrieverMsalS2s.GetToken(new[] { resource }, clientId, thumbprint,authority);
+                    var token = TokenRetrieverMsalS2s.GetToken(new[] { resource }, clientId, storeLocation, thumbprint, authority);
                     this.tbGetTokenOutput.Text = token;
                 }
                 if (rbMsalObo.Checked)
@@ -105,7 +112,7 @@ namespace TokenTool.UI
                     {
                         encryptionCertName = RemoveLabel(cbEncryptionCert.Text);
                     }
-                    var token = TokenRetrieverMsalObo.GetToken(new[] { resource }, clientId, thumbprint, jwtToken, authority, encryptionCertName);
+                    var token = TokenRetrieverMsalObo.GetToken(new[] { resource }, clientId, storeLocation, thumbprint, jwtToken, authority, encryptionCertName);
                     this.tbGetTokenOutput.Text = token;
                 }
 
@@ -120,10 +127,16 @@ namespace TokenTool.UI
         {
             try
             {
+                var storeLocation = CertStoreLocation.CurrentUser;
+                if (rbEncryptionCertLocalMachine.Checked)
+                {
+                    storeLocation = CertStoreLocation.LocalMachine;
+                }
+
                 if (this.tbGetTokenOutput.Text != null)
                 {
                     var encryptionCertSubjectName = RemoveLabel(this.cbEncryptionCert.Text?.Trim());
-                    var output = TokenValidator.ValidateReadable(this.tbGetTokenOutput.Text?.Trim(), encryptionCertSubjectName);
+                    var output = TokenValidator.ValidateReadable(this.tbGetTokenOutput.Text?.Trim(), storeLocation, encryptionCertSubjectName);
                     this.tbDecryptTokenOutput.Text = output;
                 }
             }
