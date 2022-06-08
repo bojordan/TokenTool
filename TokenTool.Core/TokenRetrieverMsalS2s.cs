@@ -9,14 +9,17 @@ namespace TokenTool.Core
             string clientId,
             CertStoreLocation storeLocation,
             string thumbprint,
-            string authority)
+            string authority,
+            bool subjectNameIssuer)
         {
             var clientApp = ConfidentialClientApplicationBuilder.Create(clientId)
-                .WithAuthority(authority)
                 .WithCertificate(CertUtils.GetCertificateFromStore(storeLocation, thumbprint))
                 .Build();
 
-            var token = clientApp.AcquireTokenForClient(scopes).ExecuteAsync().GetAwaiter().GetResult();
+            var token = clientApp.AcquireTokenForClient(scopes)
+                .WithAuthority(authority)
+                .WithSendX5C(subjectNameIssuer)
+                .ExecuteAsync().GetAwaiter().GetResult();
             return token.AccessToken;
         }
     }

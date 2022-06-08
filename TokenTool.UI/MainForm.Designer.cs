@@ -50,13 +50,14 @@ namespace TokenTool.UI
             this.lblUserAssertionJwt = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pnlAuthCertStore = new System.Windows.Forms.Panel();
-            this.pnlEncryptionCertStore = new System.Windows.Forms.Panel();
-            this.rbEncryptionCertCurrentUser = new System.Windows.Forms.RadioButton();
-            this.rbEncryptionCertLocalMachine = new System.Windows.Forms.RadioButton();
             this.rbAuthCertCurrentUser = new System.Windows.Forms.RadioButton();
             this.rbAuthCertLocalMachine = new System.Windows.Forms.RadioButton();
             this.lblAuthority = new System.Windows.Forms.Label();
             this.cbAuthority = new System.Windows.Forms.ComboBox();
+            this.pnlEncryptionCertStore = new System.Windows.Forms.Panel();
+            this.rbEncryptionCertCurrentUser = new System.Windows.Forms.RadioButton();
+            this.rbEncryptionCertLocalMachine = new System.Windows.Forms.RadioButton();
+            this.cbSubjectNameIssuer = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -127,7 +128,7 @@ namespace TokenTool.UI
             this.tbDecryptTokenOutput.Multiline = true;
             this.tbDecryptTokenOutput.Name = "tbDecryptTokenOutput";
             this.tbDecryptTokenOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbDecryptTokenOutput.Size = new System.Drawing.Size(1399, 608);
+            this.tbDecryptTokenOutput.Size = new System.Drawing.Size(1399, 602);
             this.tbDecryptTokenOutput.TabIndex = 8;
             // 
             // btnDecrypt
@@ -237,7 +238,7 @@ namespace TokenTool.UI
             this.cbEncrypted.AutoSize = true;
             this.cbEncrypted.Checked = true;
             this.cbEncrypted.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbEncrypted.Location = new System.Drawing.Point(1101, 90);
+            this.cbEncrypted.Location = new System.Drawing.Point(1122, 90);
             this.cbEncrypted.Name = "cbEncrypted";
             this.cbEncrypted.Size = new System.Drawing.Size(125, 29);
             this.cbEncrypted.TabIndex = 21;
@@ -263,6 +264,7 @@ namespace TokenTool.UI
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.cbSubjectNameIssuer);
             this.splitContainer1.Panel1.Controls.Add(this.pnlAuthCertStore);
             this.splitContainer1.Panel1.Controls.Add(this.lblAuthority);
             this.splitContainer1.Panel1.Controls.Add(this.cbAuthority);
@@ -304,39 +306,6 @@ namespace TokenTool.UI
             this.pnlAuthCertStore.Size = new System.Drawing.Size(299, 40);
             this.pnlAuthCertStore.TabIndex = 27;
             // 
-            // pnlEncryptionCertStore
-            // 
-            this.pnlEncryptionCertStore.Controls.Add(this.rbEncryptionCertCurrentUser);
-            this.pnlEncryptionCertStore.Controls.Add(this.rbEncryptionCertLocalMachine);
-            this.pnlEncryptionCertStore.Location = new System.Drawing.Point(741, 13);
-            this.pnlEncryptionCertStore.Name = "pnlEncryptionCertStore";
-            this.pnlEncryptionCertStore.Size = new System.Drawing.Size(299, 40);
-            this.pnlEncryptionCertStore.TabIndex = 28;
-            // 
-            // rbEncryptionCertCurrentUser
-            // 
-            this.rbEncryptionCertCurrentUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rbEncryptionCertCurrentUser.AutoSize = true;
-            this.rbEncryptionCertCurrentUser.Location = new System.Drawing.Point(16, 5);
-            this.rbEncryptionCertCurrentUser.Name = "rbEncryptionCertCurrentUser";
-            this.rbEncryptionCertCurrentUser.Size = new System.Drawing.Size(130, 29);
-            this.rbEncryptionCertCurrentUser.TabIndex = 25;
-            this.rbEncryptionCertCurrentUser.Text = "CurrentUser";
-            this.rbEncryptionCertCurrentUser.UseVisualStyleBackColor = true;
-            // 
-            // rbEncryptionCertLocalMachine
-            // 
-            this.rbEncryptionCertLocalMachine.AutoSize = true;
-            this.rbEncryptionCertLocalMachine.Checked = true;
-            this.rbEncryptionCertLocalMachine.Location = new System.Drawing.Point(148, 5);
-            this.rbEncryptionCertLocalMachine.Name = "rbEncryptionCertLocalMachine";
-            this.rbEncryptionCertLocalMachine.Size = new System.Drawing.Size(143, 29);
-            this.rbEncryptionCertLocalMachine.TabIndex = 26;
-            this.rbEncryptionCertLocalMachine.TabStop = true;
-            this.rbEncryptionCertLocalMachine.Text = "LocalMachine";
-            this.rbEncryptionCertLocalMachine.UseVisualStyleBackColor = true;
-            // 
             // rbAuthCertCurrentUser
             // 
             this.rbAuthCertCurrentUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -377,6 +346,53 @@ namespace TokenTool.UI
             this.cbAuthority.Name = "cbAuthority";
             this.cbAuthority.Size = new System.Drawing.Size(548, 33);
             this.cbAuthority.TabIndex = 23;
+            // 
+            // pnlEncryptionCertStore
+            // 
+            this.pnlEncryptionCertStore.Controls.Add(this.rbEncryptionCertCurrentUser);
+            this.pnlEncryptionCertStore.Controls.Add(this.rbEncryptionCertLocalMachine);
+            this.pnlEncryptionCertStore.Location = new System.Drawing.Point(741, 13);
+            this.pnlEncryptionCertStore.Name = "pnlEncryptionCertStore";
+            this.pnlEncryptionCertStore.Size = new System.Drawing.Size(299, 40);
+            this.pnlEncryptionCertStore.TabIndex = 28;
+            // 
+            // rbEncryptionCertCurrentUser
+            // 
+            this.rbEncryptionCertCurrentUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rbEncryptionCertCurrentUser.AutoSize = true;
+            this.rbEncryptionCertCurrentUser.Location = new System.Drawing.Point(16, 5);
+            this.rbEncryptionCertCurrentUser.Name = "rbEncryptionCertCurrentUser";
+            this.rbEncryptionCertCurrentUser.Size = new System.Drawing.Size(130, 29);
+            this.rbEncryptionCertCurrentUser.TabIndex = 25;
+            this.rbEncryptionCertCurrentUser.Text = "CurrentUser";
+            this.rbEncryptionCertCurrentUser.UseVisualStyleBackColor = true;
+            // 
+            // rbEncryptionCertLocalMachine
+            // 
+            this.rbEncryptionCertLocalMachine.AutoSize = true;
+            this.rbEncryptionCertLocalMachine.Checked = true;
+            this.rbEncryptionCertLocalMachine.Location = new System.Drawing.Point(148, 5);
+            this.rbEncryptionCertLocalMachine.Name = "rbEncryptionCertLocalMachine";
+            this.rbEncryptionCertLocalMachine.Size = new System.Drawing.Size(143, 29);
+            this.rbEncryptionCertLocalMachine.TabIndex = 26;
+            this.rbEncryptionCertLocalMachine.TabStop = true;
+            this.rbEncryptionCertLocalMachine.Text = "LocalMachine";
+            this.rbEncryptionCertLocalMachine.UseVisualStyleBackColor = true;
+            // 
+            // cbSubjectNameIssuer
+            // 
+            this.cbSubjectNameIssuer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSubjectNameIssuer.AutoSize = true;
+            this.cbSubjectNameIssuer.Checked = true;
+            this.cbSubjectNameIssuer.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbSubjectNameIssuer.Location = new System.Drawing.Point(1038, 125);
+            this.cbSubjectNameIssuer.Name = "cbSubjectNameIssuer";
+            this.cbSubjectNameIssuer.Size = new System.Drawing.Size(209, 29);
+            this.cbSubjectNameIssuer.TabIndex = 28;
+            this.cbSubjectNameIssuer.Text = "Subject Name/Issuer?";
+            this.cbSubjectNameIssuer.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -432,6 +448,7 @@ namespace TokenTool.UI
         private System.Windows.Forms.Panel pnlEncryptionCertStore;
         private System.Windows.Forms.RadioButton rbEncryptionCertCurrentUser;
         private System.Windows.Forms.RadioButton rbEncryptionCertLocalMachine;
+        private System.Windows.Forms.CheckBox cbSubjectNameIssuer;
     }
 }
 

@@ -101,7 +101,7 @@ namespace TokenTool.UI
                 }
                 if (rbMsalS2s.Checked)
                 {
-                    var token = TokenRetrieverMsalS2s.GetToken(new[] { resource }, clientId, storeLocation, thumbprint, authority);
+                    var token = TokenRetrieverMsalS2s.GetToken(new[] { resource }, clientId, storeLocation, thumbprint, authority, cbSubjectNameIssuer.Checked);
                     this.tbGetTokenOutput.Text = token;
                 }
                 if (rbMsalObo.Checked)
