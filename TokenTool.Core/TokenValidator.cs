@@ -23,7 +23,14 @@ namespace TokenTool.Core
 
             var config = configManager.GetConfigurationAsync().GetAwaiter().GetResult();
 
+            var decryptionKeys = new List<SecurityKey>();
+
             var securityKey = CertUtils.GetSecurityKeyFromCertificateInCertStore(storeLocation, certSubjectNameOrThumbprint);
+
+            if (securityKey != null)
+            {
+                decryptionKeys.Add(securityKey);
+            }
 
             var tokenValidationParameters = new TokenValidationParameters
             {
@@ -34,7 +41,7 @@ namespace TokenTool.Core
                 ValidateIssuer = false,
                 ValidateIssuerSigningKey = true,
                 ValidateLifetime = false,
-                TokenDecryptionKeys = new[] { securityKey },
+                TokenDecryptionKeys = decryptionKeys,
                 IssuerSigningKeys = config.SigningKeys,
             };
 
@@ -47,10 +54,16 @@ namespace TokenTool.Core
         {
             var validatedToken = Validate(token, storeLocation, certSubjectName);
 
-            var tokenHeaderJson = IndentJson(validatedToken.InnerToken.Header.SerializeToJson());
-            var tokenPayloadJson = IndentJson(validatedToken.InnerToken.Payload.SerializeToJson());
+            var tokenToDisplay = validatedToken;
+            if (validatedToken.InnerToken != null)
+            {
+                tokenToDisplay = validatedToken.InnerToken;
+            }
 
-            var rawData = validatedToken.InnerToken.RawData;
+            var tokenHeaderJson = IndentJson(tokenToDisplay.Header.SerializeToJson());
+            var tokenPayloadJson = IndentJson(tokenToDisplay.Payload.SerializeToJson());
+
+            var rawData = tokenToDisplay.RawData;
 
             return $"HEADER\r\n{tokenHeaderJson}\r\nPAYLOAD\r\n{tokenPayloadJson}\r\nRAW\r\n{rawData}";
         }

@@ -49,6 +49,7 @@ namespace TokenTool.UI
             this.cbEncrypted = new System.Windows.Forms.CheckBox();
             this.lblUserAssertionJwt = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.cbSubjectNameIssuer = new System.Windows.Forms.CheckBox();
             this.pnlAuthCertStore = new System.Windows.Forms.Panel();
             this.rbAuthCertCurrentUser = new System.Windows.Forms.RadioButton();
             this.rbAuthCertLocalMachine = new System.Windows.Forms.RadioButton();
@@ -57,7 +58,6 @@ namespace TokenTool.UI
             this.pnlEncryptionCertStore = new System.Windows.Forms.Panel();
             this.rbEncryptionCertCurrentUser = new System.Windows.Forms.RadioButton();
             this.rbEncryptionCertLocalMachine = new System.Windows.Forms.RadioButton();
-            this.cbSubjectNameIssuer = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -128,17 +128,17 @@ namespace TokenTool.UI
             this.tbDecryptTokenOutput.Multiline = true;
             this.tbDecryptTokenOutput.Name = "tbDecryptTokenOutput";
             this.tbDecryptTokenOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbDecryptTokenOutput.Size = new System.Drawing.Size(1399, 602);
+            this.tbDecryptTokenOutput.Size = new System.Drawing.Size(1399, 596);
             this.tbDecryptTokenOutput.TabIndex = 8;
             // 
             // btnDecrypt
             // 
             this.btnDecrypt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDecrypt.Location = new System.Drawing.Point(1266, 17);
+            this.btnDecrypt.Location = new System.Drawing.Point(1197, 17);
             this.btnDecrypt.Name = "btnDecrypt";
-            this.btnDecrypt.Size = new System.Drawing.Size(112, 34);
+            this.btnDecrypt.Size = new System.Drawing.Size(181, 34);
             this.btnDecrypt.TabIndex = 9;
-            this.btnDecrypt.Text = "Decrypt";
+            this.btnDecrypt.Text = "Decrypt/Decode";
             this.btnDecrypt.UseVisualStyleBackColor = true;
             this.btnDecrypt.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -297,6 +297,20 @@ namespace TokenTool.UI
             this.splitContainer1.SplitterWidth = 10;
             this.splitContainer1.TabIndex = 23;
             // 
+            // cbSubjectNameIssuer
+            // 
+            this.cbSubjectNameIssuer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSubjectNameIssuer.AutoSize = true;
+            this.cbSubjectNameIssuer.Checked = true;
+            this.cbSubjectNameIssuer.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbSubjectNameIssuer.Location = new System.Drawing.Point(1038, 125);
+            this.cbSubjectNameIssuer.Name = "cbSubjectNameIssuer";
+            this.cbSubjectNameIssuer.Size = new System.Drawing.Size(209, 29);
+            this.cbSubjectNameIssuer.TabIndex = 28;
+            this.cbSubjectNameIssuer.Text = "Subject Name/Issuer?";
+            this.cbSubjectNameIssuer.UseVisualStyleBackColor = true;
+            // 
             // pnlAuthCertStore
             // 
             this.pnlAuthCertStore.Controls.Add(this.rbAuthCertCurrentUser);
@@ -379,20 +393,6 @@ namespace TokenTool.UI
             this.rbEncryptionCertLocalMachine.TabStop = true;
             this.rbEncryptionCertLocalMachine.Text = "LocalMachine";
             this.rbEncryptionCertLocalMachine.UseVisualStyleBackColor = true;
-            // 
-            // cbSubjectNameIssuer
-            // 
-            this.cbSubjectNameIssuer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbSubjectNameIssuer.AutoSize = true;
-            this.cbSubjectNameIssuer.Checked = true;
-            this.cbSubjectNameIssuer.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbSubjectNameIssuer.Location = new System.Drawing.Point(1038, 125);
-            this.cbSubjectNameIssuer.Name = "cbSubjectNameIssuer";
-            this.cbSubjectNameIssuer.Size = new System.Drawing.Size(209, 29);
-            this.cbSubjectNameIssuer.TabIndex = 28;
-            this.cbSubjectNameIssuer.Text = "Subject Name/Issuer?";
-            this.cbSubjectNameIssuer.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
