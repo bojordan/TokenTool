@@ -7,17 +7,21 @@
     <AssemblyName>TokenTool</AssemblyName>
     <ApplicationIcon>key.ico</ApplicationIcon>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <PublishSingleFile Condition="'$(Configuration)' == 'Release'">true</PublishSingleFile>
+    <!--<PublishSingleFile Condition="'$(Configuration)' == 'Release'">true</PublishSingleFile>-->
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TokenTool.Core\TokenTool.Core.csproj" />
+    <None Remove="config.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="config.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <EmbeddedResource Include="config.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TokenTool.Core\TokenTool.Core.csproj" />
   </ItemGroup>
 
 </Project>

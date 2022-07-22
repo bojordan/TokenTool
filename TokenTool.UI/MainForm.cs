@@ -2,6 +2,7 @@
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Windows.Forms;
 using TokenTool.Core;
@@ -21,7 +22,33 @@ namespace TokenTool.UI
 
             try
             {
-                var configFile = File.ReadAllText("config.json");
+                var localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                var configFileDir = Path.Combine(localAppDataPath, "TokenTool");
+                if (!Directory.Exists(configFileDir))
+                {
+                    Directory.CreateDirectory(configFileDir);
+                }
+
+                var configFilePath = Path.Combine(configFileDir, "config.json");
+                
+                this.tbGetTokenOutput.AppendText($"Loading config from {configFilePath}");
+                this.tbGetTokenOutput.AppendText(Environment.NewLine);
+
+                if (!File.Exists(configFilePath))
+                {
+                    var assembly = Assembly.GetExecutingAssembly();
+                    using var sourceStream = assembly.GetManifestResourceStream("TokenTool.UI.config.json");
+                    using (var destinationStream = new FileStream(configFilePath, FileMode.OpenOrCreate))
+                    {
+                        while (sourceStream.Position < sourceStream.Length)
+                        {
+                            destinationStream.WriteByte((byte)sourceStream.ReadByte());
+                        }
+                    }
+                }
+                
+                var configFile = File.ReadAllText(configFilePath);
+
                 var config = JsonSerializer.Deserialize<TokenToolConfig>(configFile);
 
                 this.cbResourceScope.Items.AddRange(config.ResourceScopes.Select(x => AddLabel(x.Label, x.ResourceOrScope)).ToArray());
